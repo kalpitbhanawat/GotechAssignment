@@ -1,8 +1,9 @@
 
 const express = require('express')
 const {Client} =require('pg')
-const app = express()
-const port = 3000
+const bodyParser = require('body-parser');
+const pool = require('./db'); 
+const port = 3001
 const client = new Client({
     connectionString: "postgresql://kalpit.bhanawat99:syN8Ir1kzQWA@ep-super-shape-86209005.us-east-2.aws.neon.tech/AKV?sslmode=require"
 })
@@ -18,10 +19,14 @@ const client = new Client({
 //     )
 //     console.log(result)
 // })
+const app = express()
+var cors = require('cors');
+app.use(cors());
+app.use(bodyParser.json());
 app.get('/get-data', async (req, res) => {
     try {
-        await client.connect()
-        const result = await client.query(`
+        
+        const result = await pool.query(`
             SELECT * from Users;
             `
         )
