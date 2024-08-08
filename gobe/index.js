@@ -31,7 +31,7 @@ app.get('/get-data', async (req, res) => {
             `
         )
         console.log(result)
-        res.json(result);
+        res.json(result.rows);
     } catch (error) {
         console.error('Error fetching data:', error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -39,6 +39,7 @@ app.get('/get-data', async (req, res) => {
 });
 
 app.delete('/items/:id', async (req, res) => {
+    console.log("params",req.params)
     const { id } = req.params;
   
     try {
@@ -73,9 +74,6 @@ app.delete('/items/:id', async (req, res) => {
     }
   });
 
-//   UPDATE cars
-// SET color = 'red'
-// WHERE brand = 'Volvo';
 app.put('/users', async (req, res) => {
     const {email,username,sentmails,activitytime,activitystate,id}=req.body;
       try {
